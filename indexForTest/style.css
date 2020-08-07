@@ -1,0 +1,106 @@
+body, html {
+  font-family: 'Nunito', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.lt-block {
+  width: 1009px;
+}
+
+.lt-block > .lt-block-wrapper {
+  position: relative;
+  padding-top: 44px;
+  padding-left: 64px;
+  padding-bottom: 8px;
+  border-radius: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -90px 0;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.cover-wrapper {
+  position: relative;
+  z-index: 3;
+}
+
+.lt-block > .lt-block-wrapper::before,
+.lt-block > .lt-block-wrapper::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  border-radius: 30px;
+}
+.lt-block > .lt-block-wrapper::before {
+  background-image: url("bg-promo.jpg");
+}
+
+.lt-block > .lt-block-wrapper::after {
+  background-image: linear-gradient(81.25deg, rgba(11, 116, 149, 0.8) 33.41%, rgba(207, 0, 124, 0.2) 68.04%);
+}
+
+.f-subheader-md p {
+  margin: 0;
+  margin-bottom: 4px;
+  color: #FFE600;
+  font-size: 18px;
+  line-height: 25px;
+}
+.f-header p {
+  margin: 0;
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 46px;
+  color: #FFFFFF;
+}
+.f-header {
+  margin-bottom: 12px;
+}
+.f-subheader-sm p {
+  margin: 0;
+  margin-bottom: 23px;
+  font-size: 24px;
+  line-height: 33px;
+  color: #FFFFFF;
+}
+.part-button .btn.f-btn.button-md {
+  position: relative;
+  width: 253px;
+  min-height: auto;
+  height: 52px;
+  color: #000000;
+  font-weight: bold;
+  font-size: 0;
+  background: #FFE600;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+
+}
+.part-button .btn.f-btn.button-md:focus {
+  box-shadow: 0 0 2px 2px white;
+}
+.part-button .btn.f-btn.button-md::before {
+  position: absolute;
+  content: "Выбрать курсы";
+  color: #000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px 45px;
+  border-radius: inherit;
+  font-size: 17px;
+  line-height: 20px;
+  cursor: pointer;
+  background-color: #FFE600;
+  box-sizing: border-box;
+}

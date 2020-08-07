@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>formValid</title>
+</head>
+<body>
+  <style>
+    body,
+    html {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: rgb(132, 210, 255);
+    }
+    .user-form {
+      width: 400px;
+      padding: 50px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      background-color: #fff;
+    }
+    .field {
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .user-form label {
+      display: block;
+      margin-bottom: 20px;
+    }
+    .user-form__btn {
+      display: block;
+      width: 200px;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+      color: #fff;
+      border: 2px solid rgb(132, 210, 255);
+      background-color: rgb(132, 210, 255);
+      border-radius: 5px;
+    }
+    .user-form__error {
+      font-size: 12px;
+      color: red;
+    }
+    .error-value {
+      border: 2px solid rgb(245, 119, 103);
+    }
+
+  </style>
+  <form class="user-form" action="https://echo.htmlacademy.ru" method="post" name="form">
+    <label>
+      Имя
+      <input class="user-form__input field" id="user-name" type="text" name="user-name" placeholder="Иван" maxlength="25">
+      <span class="user-form__error user-form__error--name"></span>
+    </label>
+    <label>
+      Почта
+      <input class="user-form__input field" id="user-email" type="text" name="user-email" placeholder="bingo@mail.ru">
+      <span class="user-form__error user-form__error--email"></span>
+    </label>
+    <label>
+      Телефон
+      <input class="user-form__input field" id="user-tel" type="text" name="user-tel" placeholder="+7(926)288-11-37" maxlength="11">
+      <span class="user-form__error user-form__error--tel"></span>
+    </label>
+    <button class="user-form__btn" type="submit">Отправить</button>
+  </form>
+  <script>
+
+    const form = document.querySelector(".user-form");
+    const userName = form.querySelector("[name=user-name]");
+    const userTel = form.querySelector("[name=user-tel]");
+    const userEmail = form.querySelector("[name=user-email]");
+    const titleName = form.querySelector(".user-form__error--name");
+    const titleEmail = form.querySelector(".user-form__error--email");
+    const titleTel = form.querySelector(".user-form__error--tel");
+    const inputs = form.querySelectorAll(".field");
+  
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let isValidForm = validate(this);
+      if(isValidForm) {
+        form.submit();
+      }
+    });
+    //Валидация формы
+    function validate(checkForm) {
+      const userNameValue = userName.value.trim();
+      const userTelValue = userTel.value.trim();
+      const userEmailValue =  userEmail.value.trim();
+      let isCheckForm = true;
+      const pattern = {
+        name: /^[а-яА-Яa-zA-ZёЁ]{2,25}$/,
+        email: /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/,
+        tel: /^[0-9]{11}/,
+      }
+
+      for (const input of inputs) {
+        if(input.value === "" || (!checkValidInput(input))) {
+          input.classList.add("error-value");
+          isCheckForm = false;
+        } else {
+          input.classList.remove("error-value");
+        }
+      }
+
+      function checkValidInput(input) {
+        let rule = input.getAttribute("name");
+        let isCheck;
+
+        switch(rule) {
+            case "user-name": 
+            isCheck = pattern.name.test(userNameValue);
+            if(!isCheck) {
+              titleName.innerHTML = "Неверно введено имя пользователя";
+            } else {
+              titleName.innerHTML = "";
+            }
+            break;
+            case "user-email": 
+            isCheck = pattern.email.test(userEmailValue);
+            if(!isCheck) {
+              titleEmail.innerHTML = "Неверно введена почта";
+            } else {
+              titleEmail.innerHTML = "";
+            }
+            break;
+            case "user-tel": 
+            isCheck = pattern.tel.test(userTelValue);
+            if(!isCheck) {
+              titleTel.innerHTML = "Неверно введен номер мобильного телефона(11 цифр)";
+            } else {
+              titleTel.innerHTML = "";
+            }
+            break;
+          }
+
+          return isCheck;
+      }
+      return isCheckForm;
+    }
+  </script>
+</body>
+</html>
+
+
+<!-- 
+Если не устраивает регулярка для email, можно проверять просто на присутствие символа @ и .
+и дальше отправлять сообщение проверки на указанный адрес.
+    elem.indexOf("@");
+    elem.lastIndexOf(".");
+-->
